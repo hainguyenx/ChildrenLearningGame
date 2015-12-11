@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.WindowManager;
 
+import com.hnguyen.childrenlearninggame.Explosion;
 import com.hnguyen.childrenlearninggame.model.Components.Speed;
 
 import java.util.Random;
@@ -22,7 +23,8 @@ public class Balloon {
     private boolean touched;
     private Speed speed;
     private Context context;
-    //private Explosions explosions;
+    private Explosion explosion;
+    private static int NUMBER_PARTICLE=10;
 
     public Balloon(Bitmap bitmap, int x, int y) {
         this.bitmap = bitmap;
@@ -79,6 +81,8 @@ public class Balloon {
 
     public void draw(Canvas canvas) {
         canvas.drawBitmap(bitmap, x - (bitmap.getWidth() / 2), y - (bitmap.getHeight() / 2), null);
+        if(explosion !=null && explosion.isAlive())
+            explosion.draw(canvas);
     }
 
     /**
@@ -88,6 +92,10 @@ public class Balloon {
         if (!touched) {
             y += (speed.getYv() * speed.getyDirection());
         }
+        if (explosion != null && explosion.isAlive()) {
+            explosion.update();
+        }
+
     }
 
     /**
@@ -101,7 +109,12 @@ public class Balloon {
             if (eventY >= (y - bitmap.getHeight() / 2) && (y <= (y + bitmap.getHeight() / 2))) {
                 // droid touched
                 setTouched(true);
-                Log.d(TAG,"Balloon is touched!!");
+                Log.d(TAG, "Balloon is touched!!");
+                //putting balloon out of sight
+                this.y = -1000;
+                if(explosion==null || explosion.isDead())
+                    explosion = new Explosion(NUMBER_PARTICLE,eventX,eventY);
+
             } else {
                 setTouched(false);
             }
