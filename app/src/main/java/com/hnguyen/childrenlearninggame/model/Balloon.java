@@ -2,6 +2,7 @@ package com.hnguyen.childrenlearninggame.model;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -9,6 +10,7 @@ import android.view.MotionEvent;
 import android.view.WindowManager;
 
 import com.hnguyen.childrenlearninggame.Explosion;
+import com.hnguyen.childrenlearninggame.R;
 import com.hnguyen.childrenlearninggame.model.Components.Speed;
 
 import java.util.Random;
@@ -25,6 +27,8 @@ public class Balloon {
     private Context context;
     private Explosion explosion;
     private static int NUMBER_PARTICLE=10;
+    private Glyphs glyphs;
+    private Character letter;
 
     public Balloon(Bitmap bitmap, int x, int y) {
         this.bitmap = bitmap;
@@ -39,7 +43,25 @@ public class Balloon {
         x = getXRandomNumber();
         y = getYRandomNumber();
         this.speed = new Speed();
+        this.glyphs = new Glyphs(BitmapFactory.decodeResource(context.getResources(), R.drawable.glyphs_green),8,12);
+        letter = randomChar();
+    }
+    public void reset()
+    {
+        this.y = getYRandomNumber();
+        this.x = getXRandomNumber();
+        this.letter = randomChar();
+    }
+    private Character randomChar()
+    {
+        String SALTCHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        StringBuilder salt = new StringBuilder();
+        Random rnd = new Random();
+        int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+        Character ch = SALTCHARS.charAt(index);
+        Log.d(TAG, "randomString=" + ch);
 
+        return ch;
     }
     public Bitmap getBitmap() {
         return bitmap;
@@ -81,6 +103,7 @@ public class Balloon {
 
     public void draw(Canvas canvas) {
         canvas.drawBitmap(bitmap, x - (bitmap.getWidth() / 2), y - (bitmap.getHeight() / 2), null);
+        glyphs.drawChar(canvas,letter,this.x,this.y);
         if(explosion !=null && explosion.isAlive())
             explosion.draw(canvas);
     }
@@ -111,7 +134,7 @@ public class Balloon {
                 setTouched(true);
                 Log.d(TAG, "Balloon is touched!!");
                 //putting balloon out of sight
-                this.y = -1000;
+                reset();
                 if(explosion==null || explosion.isDead())
                     explosion = new Explosion(NUMBER_PARTICLE,eventX,eventY);
 
