@@ -55,7 +55,6 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         if( (System.currentTimeMillis() - lastSpawnTime) > SPAWN_INTERVAL) {
             balloons[currentBalloon++] = new Balloon(BitmapFactory.decodeResource(getResources(), R.drawable.balloon1), getContext());
             lastSpawnTime = System.currentTimeMillis();
-            Log.d(TAG,"currentBalloonINside="+String.valueOf(currentBalloon));
 
         }
     }
@@ -63,8 +62,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     private void respawnBalloon(Balloon b) {
         Log.d(TAG, "respawnBalloon()");
         if( (System.currentTimeMillis() - lastSpawnTime) > SPAWN_INTERVAL) {
-            b.setY(b.getYRandomNumber());
-            b.setX(b.getXRandomNumber());
+           b.reset();
         }
     }
 
@@ -120,10 +118,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
                 if (b != null)
                     b.draw(canvas);
             }
-            displayFps(canvas, "avgFps");
-
-
-
+            displayFps(canvas, "avgFps:"+avgFps);
         }
 
     }
