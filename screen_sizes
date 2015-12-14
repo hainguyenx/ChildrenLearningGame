@@ -1,0 +1,40 @@
+APP ICONS DIMENSION
+3:4:6:8 ratio
+
+ldpi = 36*36 pixels
+mdpi = 48*48 pixels
+hdpi = 72*72 pixels
+xhdpi = 96*96 pixels
+xxhdpi = 144 * 144 pixels
+
+
+BACKGROUND DIMENSION
+ldpi = 240x320 pixels
+mdpi = 320x480 pixels
+hdpi = 480*800 pixels
+xhdpi = 720*1280 pixels
+
+
+WHERE STORE STORE IMAGES
+Images:  
+	drawbable
+	drawbable-ldpi
+	drawbable-mdpi
+	drawbable-hdpi
+	drawbable-xhdpi
+
+
+
+WHERE TO STORE LAYOUTS
+Portraits:
+	layout
+	layout-small
+	layout-normal
+	layout-large
+	layout-xlarge
+Landscapes:
+	layout
+	layout-small-land
+	layout-normal-land
+	layout-large-land
+	layout-xlarge-land
