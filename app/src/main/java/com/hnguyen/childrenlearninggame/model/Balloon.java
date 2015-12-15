@@ -4,6 +4,9 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -103,7 +106,8 @@ public class Balloon {
 
     public void draw(Canvas canvas) {
         canvas.drawBitmap(bitmap, x - (bitmap.getWidth() / 2), y - (bitmap.getHeight() / 2), null);
-        glyphs.drawChar(canvas,letter,this.x,this.y);
+        //glyphs.drawChar(canvas,letter,this.x,this.y);
+        drawTextToBitmap(canvas);
         if(explosion !=null && explosion.isAlive())
             explosion.draw(canvas);
     }
@@ -163,5 +167,32 @@ public class Balloon {
         DisplayMetrics metrics = new DisplayMetrics();
         windowManager.getDefaultDisplay().getMetrics(metrics);
         return metrics.heightPixels + bitmap.getHeight();
+    }
+
+    public void drawTextToBitmap(Canvas canvas) {
+
+        WindowManager windowManager = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics metrics = new DisplayMetrics();
+
+        int fontSize = (int) context.getResources().getDimension(R.dimen.letter_size);
+        //convert sp to px
+        int xOffset = (int)metrics.scaledDensity * fontSize;
+
+        // new antialised Paint
+        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        // text color - #3D3D3D
+        paint.setColor(Color.rgb(255, 255, 255));
+        // text size in pixels
+        paint.setTextSize((int) (fontSize));
+        // text shadow
+        //paint.setShadowLayer(1f, 0f, 1f, Color.WHITE);
+
+        // draw text to the Canvas center
+       // Rect bounds = new Rect();
+        String text = Character.toString(letter.charValue());
+        //paint.getTextBounds(text, 0, text.length(), bounds);
+
+        canvas.drawText(text,this.x-fontSize/2, this.y, paint);
+
     }
 }

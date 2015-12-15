@@ -25,7 +25,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     private Background bg;
     private int currentBalloon=0;
     private long lastSpawnTime=0;
-    private static int SPAWN_INTERVAL=2000;
+    private static int SPAWN_INTERVAL=3000;
     private static int TOTAL_BALLOONS=5;
 
     public MainGamePanel( Context context) {
