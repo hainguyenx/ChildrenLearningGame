@@ -35,7 +35,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         balloons = new Balloon[5];
         lastSpawnTime = System.currentTimeMillis();
         spawnBalloon();
-        bg = new Background(BitmapFactory.decodeResource(getResources(),R.drawable.cloud_background));
+        bg = new Background(BitmapFactory.decodeResource(getResources(),R.drawable.background));
 
         // create the game loop thread
         thread = new MainThread(getHolder(), this);
@@ -53,7 +53,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
 
 
         if( (System.currentTimeMillis() - lastSpawnTime) > SPAWN_INTERVAL) {
-            balloons[currentBalloon++] = new Balloon(BitmapFactory.decodeResource(getResources(), R.drawable.balloon1), getContext());
+            balloons[currentBalloon++] = new Balloon(BitmapFactory.decodeResource(getResources(), R.drawable.red_balloon), getContext());
             lastSpawnTime = System.currentTimeMillis();
 
         }
