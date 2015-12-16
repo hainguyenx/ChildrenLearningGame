@@ -15,6 +15,7 @@ import android.view.WindowManager;
 import com.hnguyen.childrenlearninggame.Explosion;
 import com.hnguyen.childrenlearninggame.R;
 import com.hnguyen.childrenlearninggame.model.Components.Speed;
+import com.hnguyen.childrenlearninggame.model.Components.Voice;
 
 import java.util.Random;
 
@@ -30,24 +31,26 @@ public class Balloon {
     private Context context;
     private Explosion explosion;
     private static int NUMBER_PARTICLE=10;
-    private Glyphs glyphs;
     private Character letter;
+    private Voice voice;
 
     public Balloon(Bitmap bitmap, int x, int y) {
         this.bitmap = bitmap;
         this.x = x;
         this.y = y;
         this.speed = new Speed();
+        this.voice = new Voice(this.context);
     }
-    public Balloon(Bitmap bitmap,Context context)
+    public Balloon(Bitmap bitmap,Context context,Voice voice)
     {
         this.context = context;
         this.bitmap = bitmap;
         x = getXRandomNumber();
         y = getYRandomNumber();
         this.speed = new Speed();
-        this.glyphs = new Glyphs(BitmapFactory.decodeResource(context.getResources(), R.drawable.glyphs_green),8,12);
         letter = randomChar();
+        this.voice = voice;
+
     }
     public void reset()
     {
@@ -65,43 +68,6 @@ public class Balloon {
         Log.d(TAG, "randomString=" + ch);
 
         return ch;
-    }
-    public Bitmap getBitmap() {
-        return bitmap;
-    }
-    public void setBitmap(Bitmap bitmap) {
-        this.bitmap = bitmap;
-    }
-    public int getX() {
-        return x;
-    }
-    public void setX(int x) {
-        this.x = x;
-    }
-    public int getY() {
-        return y;
-    }
-    public void setY(int y) {
-        this.y = y;
-    }
-    public  void setContext(Context context)
-    {
-        this.context = context;
-    }
-    public boolean isTouched() {
-        return touched;
-    }
-
-    public void setTouched(boolean touched) {
-        this.touched = touched;
-    }
-
-    public Speed getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(Speed speed) {
-        this.speed = speed;
     }
 
     public void draw(Canvas canvas) {
@@ -121,6 +87,7 @@ public class Balloon {
         }
         if (explosion != null && explosion.isAlive()) {
             explosion.update();
+
         }
 
     }
@@ -142,6 +109,8 @@ public class Balloon {
                 if(explosion==null || explosion.isDead())
                     explosion = new Explosion(NUMBER_PARTICLE,eventX,eventY);
 
+                voice.saidCommand(letter);
+
             } else {
                 setTouched(false);
             }
@@ -162,11 +131,11 @@ public class Balloon {
 
     public int getYRandomNumber()
     {
-        Random r = new Random();
+       // Random r = new Random();
         WindowManager windowManager = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
         DisplayMetrics metrics = new DisplayMetrics();
         windowManager.getDefaultDisplay().getMetrics(metrics);
-        return metrics.heightPixels + bitmap.getHeight();
+        return metrics.heightPixels + bitmap.getHeight()/2;
     }
 
     public void drawTextToBitmap(Canvas canvas) {
@@ -184,6 +153,7 @@ public class Balloon {
         paint.setColor(Color.rgb(255, 255, 255));
         // text size in pixels
         paint.setTextSize((int) (fontSize));
+
         // text shadow
         //paint.setShadowLayer(1f, 0f, 1f, Color.WHITE);
 
@@ -195,4 +165,42 @@ public class Balloon {
         canvas.drawText(text,this.x-fontSize/2, this.y, paint);
 
     }
+
+    public Bitmap getBitmap() {
+        return bitmap;
+    }
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
+    }
+    public int getX() {
+        return x;
+    }
+    public void setX(int x) {
+        this.x = x;
+    }
+    public int getY() {
+        return y;
+    }
+    public void setY(int y) {
+        this.y = y;
+    }
+    public  void setContext(Context context) {
+        this.context = context;
+    }
+    public boolean isTouched() {
+        return touched;
+    }
+
+    public void setTouched(boolean touched) {
+        this.touched = touched;
+    }
+
+    public Speed getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(Speed speed) {
+        this.speed = speed;
+    }
+
 }

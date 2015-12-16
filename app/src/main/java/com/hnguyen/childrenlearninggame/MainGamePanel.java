@@ -12,6 +12,9 @@ import android.view.SurfaceView;
 import com.hnguyen.childrenlearninggame.model.Background;
 import com.hnguyen.childrenlearninggame.model.Balloon;
 import com.hnguyen.childrenlearninggame.model.Components.Speed;
+import com.hnguyen.childrenlearninggame.model.Components.Voice;
+
+import java.lang.reflect.Field;
 
 /**
  * Created by hnguyen on 10/3/15.
@@ -27,6 +30,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     private long lastSpawnTime=0;
     private static int SPAWN_INTERVAL=3000;
     private static int TOTAL_BALLOONS=5;
+    private Voice voice;
 
     public MainGamePanel( Context context) {
         super(context);
@@ -40,29 +44,24 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         // create the game loop thread
         thread = new MainThread(getHolder(), this);
 
+        voice = new Voice(context);
         // make the GamePanel focusable so it can handle events
         setFocusable(true);
     }
 
+
     private void spawnBalloon() {
-        Log.d(TAG,"spawnBalloon()");
-        Log.d(TAG,String.valueOf(lastSpawnTime));
-        Log.d(TAG,String.valueOf(System.currentTimeMillis()));
-        Log.d(TAG,"currentBalloon="+String.valueOf(currentBalloon));
-
-
-
         if( (System.currentTimeMillis() - lastSpawnTime) > SPAWN_INTERVAL) {
-            balloons[currentBalloon++] = new Balloon(BitmapFactory.decodeResource(getResources(), R.drawable.red_balloon), getContext());
+            balloons[currentBalloon++] = new Balloon(BitmapFactory.decodeResource(getResources(), R.drawable.red_balloon), getContext(),voice);
             lastSpawnTime = System.currentTimeMillis();
 
         }
     }
 
     private void respawnBalloon(Balloon b) {
-        Log.d(TAG, "respawnBalloon()");
         if( (System.currentTimeMillis() - lastSpawnTime) > SPAWN_INTERVAL) {
            b.reset();
+           lastSpawnTime = System.currentTimeMillis();
         }
     }
 
@@ -169,5 +168,15 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         }
     }
 
+
+    public static int getId(String resourceName, Class<?> c) {
+        try {
+            Field idField = c.getDeclaredField(resourceName);
+            return idField.getInt(idField);
+        } catch (Exception e) {
+            throw new RuntimeException("No resource ID found for: "
+                    + resourceName + " / " + c, e);
+        }
+    }
 }
 
