@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -23,7 +24,8 @@ public class MainActivity extends Activity {
         // making it full screen
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         // set our MainGamePanel as the View
-        setContentView(new MainGamePanel(this));
+        //setContentView(new MainGamePanel(this));
+        setContentView(R.layout.activity_main);
         backgroundPlayer = MediaPlayer.create(MainActivity.this,R.raw.background_music);
         backgroundPlayer.setLooping(true);
         backgroundPlayer.start();
@@ -65,5 +67,10 @@ public class MainActivity extends Activity {
             backButtonCount++;
         }
 
+    }
+
+    public void startGame(View v)
+    {
+        
     }
 }
