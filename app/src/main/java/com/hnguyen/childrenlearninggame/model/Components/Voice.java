@@ -19,8 +19,9 @@ import java.util.Map;
  */
 public class Voice {
     private static String TAG = Voice.class.getSimpleName();
-    private static final String[] alphabets = {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o",
-                                    "p","q","r","s","t","u","v","w","x","y","z"};
+    private static final String[] alphabets = {"a","b","c","d","e","f","g","h","i","j","k","l",
+                                                "m","n","o","p","q","r","s","t","u","v","w","x",
+                                                "y","z"};
     private Map<String,String> soundCommands;
     private static final Map<String, String> numNames;
     static {
@@ -40,10 +41,17 @@ public class Voice {
     private SoundPool sounds;
 
     private Context context;
-
+    private Boolean loaded = false;
     public Voice(Context context){
         this.context = context;
         sounds = buildSoundPool();
+        sounds.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+            @Override
+            public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+                loaded = true;
+            }
+        });
+
         soundCommands = new HashMap<String, String>();
         for (String letter:alphabets) {
             int fileID = MainGamePanel.getId(letter,R.raw.class);
@@ -51,24 +59,26 @@ public class Voice {
             soundCommands.put(letter,String.valueOf(command));
         }
         for (String key:numNames.keySet()){
-            int fileID = MainGamePanel.getId(key, R.raw.class);
+            int fileID = MainGamePanel.getId(numNames.get(key), R.raw.class);
             Log.d(TAG,"key="+key+",,,fileID="+Integer.toString(fileID));
             int command = sounds.load(this.context,fileID,1);
-            soundCommands.put(key,String.valueOf(command));
+            soundCommands.put(key, String.valueOf(command));
         }
 
-        for (String key:soundCommands.keySet())
-        {
-            Log.d(TAG,"key="+key+"======fileID="+soundCommands.get(key));
-
+        for (String key:soundCommands.keySet()){
+            Log.d(TAG,"key="+key);
         }
-
     }
 
 
     public void saidCommand(Character c) {
-        int soundCommand = Integer.parseInt(soundCommands.get(Character.toString(c).toLowerCase()));
-        sounds.play(soundCommand, 1.0f, 1.0f, 0, 0, 1.5f);
+        String command = Character.toString(c).toLowerCase();
+        if( soundCommands.get(command) !=null ) {
+            int soundCommand = Integer.parseInt(soundCommands.get(command));
+            Log.d(TAG, "saidCommand=" + Character.toString(c));
+            if (loaded)
+                sounds.play(soundCommand, 1.0f, 1.0f, 0, 0, 1.5f);
+        }
     }
 
 

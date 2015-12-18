@@ -18,7 +18,6 @@ import com.hnguyen.childrenlearninggame.model.Components.Speed;
 import com.hnguyen.childrenlearninggame.model.Components.Voice;
 
 import java.util.Random;
-
 /**
  * Created by hnguyen on 10/3/15.
  */
@@ -30,7 +29,7 @@ public class Balloon {
     private Speed speed;
     private Context context;
     private Explosion explosion;
-    private static int NUMBER_PARTICLE=10;
+    private static int NUMBER_PARTICLE=15;
     private Character letter;
     private Voice voice;
 
@@ -54,14 +53,14 @@ public class Balloon {
     }
     public void reset()
     {
+        this.letter = randomChar();
         this.y = getYRandomNumber();
         this.x = getXRandomNumber();
-        this.letter = randomChar();
+
     }
     private Character randomChar()
     {
-        String SALTCHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-        StringBuilder salt = new StringBuilder();
+        String SALTCHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789";
         Random rnd = new Random();
         int index = (int) (rnd.nextFloat() * SALTCHARS.length());
         Character ch = SALTCHARS.charAt(index);
@@ -82,9 +81,8 @@ public class Balloon {
      * Method which updates the droid's internal state every tick
      */
     public void update() {
-        if (!touched) {
+        if (!touched)
             y += (speed.getYv() * speed.getyDirection());
-        }
         if (explosion != null && explosion.isAlive()) {
             explosion.update();
 
@@ -105,12 +103,10 @@ public class Balloon {
                 setTouched(true);
                 Log.d(TAG, "Balloon is touched!!");
                 //putting balloon out of sight
+                voice.saidCommand(letter);
                 reset();
                 if(explosion==null || explosion.isDead())
                     explosion = new Explosion(NUMBER_PARTICLE,eventX,eventY);
-
-                voice.saidCommand(letter);
-
             } else {
                 setTouched(false);
             }

@@ -2,6 +2,7 @@ package com.hnguyen.childrenlearninggame;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
@@ -13,6 +14,7 @@ public class MainActivity extends Activity {
 
     public static final String TAG = MainActivity.class.getSimpleName();
     private int backButtonCount=0;
+    private MediaPlayer backgroundPlayer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +24,9 @@ public class MainActivity extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         // set our MainGamePanel as the View
         setContentView(new MainGamePanel(this));
+        backgroundPlayer = MediaPlayer.create(MainActivity.this,R.raw.background_music);
+        backgroundPlayer.setLooping(true);
+        backgroundPlayer.start();
         Log.d(TAG, "View added");
     }
 
@@ -30,12 +35,21 @@ public class MainActivity extends Activity {
     protected void onDestroy() {
         Log.d(TAG, "Destroying...");
         super.onDestroy();
+        if(backgroundPlayer!=null)
+            backgroundPlayer.release();
     }
 
     @Override
     protected void onStop() {
         Log.d(TAG, "Stopping...");
         super.onStop();
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        backgroundPlayer.release();
+        finish();
     }
 
     @Override
