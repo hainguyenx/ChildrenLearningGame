@@ -13,6 +13,7 @@ import android.view.MotionEvent;
 import android.view.WindowManager;
 
 import com.hnguyen.childrenlearninggame.Explosion;
+import com.hnguyen.childrenlearninggame.MainGamePanel;
 import com.hnguyen.childrenlearninggame.R;
 import com.hnguyen.childrenlearninggame.model.Components.Speed;
 import com.hnguyen.childrenlearninggame.model.Components.Voice;
@@ -27,22 +28,16 @@ public class Balloon {
     int x,y;
     private boolean touched;
     private Speed speed;
-    private Context context;
+    private MainGamePanel mainGamePanel;
     private Explosion explosion;
     private static int NUMBER_PARTICLE=15;
     private Character letter;
     private Voice voice;
 
-    public Balloon(Bitmap bitmap, int x, int y) {
-        this.bitmap = bitmap;
-        this.x = x;
-        this.y = y;
-        this.speed = new Speed();
-        this.voice = new Voice(this.context);
-    }
-    public Balloon(Bitmap bitmap,Context context,Voice voice)
+
+    public Balloon(Bitmap bitmap,MainGamePanel mainGamePanel,Voice voice)
     {
-        this.context = context;
+        this.mainGamePanel = mainGamePanel;
         this.bitmap = bitmap;
         x = getXRandomNumber();
         y = getYRandomNumber();
@@ -104,7 +99,7 @@ public class Balloon {
                 Log.d(TAG, "Balloon is touched!!");
                 //putting balloon out of sight
                 voice.saidCommand(letter);
-                reset();
+                y = -1 * bitmap.getHeight();
                 if(explosion==null || explosion.isDead())
                     explosion = new Explosion(NUMBER_PARTICLE,eventX,eventY);
             } else {
@@ -119,7 +114,7 @@ public class Balloon {
     public int getXRandomNumber()
     {
         Random r = new Random();
-        WindowManager windowManager = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
+        WindowManager windowManager = (WindowManager)mainGamePanel.getContext().getSystemService(Context.WINDOW_SERVICE);
         DisplayMetrics metrics = new DisplayMetrics();
         windowManager.getDefaultDisplay().getMetrics(metrics);
         return getBitmap().getWidth() + r.nextInt(metrics.widthPixels - getBitmap().getWidth()*2);
@@ -128,7 +123,7 @@ public class Balloon {
     public int getYRandomNumber()
     {
        // Random r = new Random();
-        WindowManager windowManager = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
+        WindowManager windowManager = (WindowManager)mainGamePanel.getContext().getSystemService(Context.WINDOW_SERVICE);
         DisplayMetrics metrics = new DisplayMetrics();
         windowManager.getDefaultDisplay().getMetrics(metrics);
         return metrics.heightPixels + bitmap.getHeight()/2;
@@ -136,10 +131,10 @@ public class Balloon {
 
     public void drawTextToBitmap(Canvas canvas) {
 
-        WindowManager windowManager = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
+        WindowManager windowManager = (WindowManager)mainGamePanel.getContext().getSystemService(Context.WINDOW_SERVICE);
         DisplayMetrics metrics = new DisplayMetrics();
 
-        int fontSize = (int) context.getResources().getDimension(R.dimen.letter_size);
+        int fontSize = (int)mainGamePanel.getContext().getResources().getDimension(R.dimen.letter_size);
         //convert sp to px
         int xOffset = (int)metrics.scaledDensity * fontSize;
 
@@ -154,11 +149,11 @@ public class Balloon {
         //paint.setShadowLayer(1f, 0f, 1f, Color.WHITE);
 
         // draw text to the Canvas center
-       // Rect bounds = new Rect();
+        Rect bounds = new Rect();
         String text = Character.toString(letter.charValue());
-        //paint.getTextBounds(text, 0, text.length(), bounds);
+        paint.getTextBounds(text, 0, text.length(), bounds);
 
-        canvas.drawText(text,this.x-fontSize/2, this.y, paint);
+        canvas.drawText(text,this.x-bounds.width()/2, this.y, paint);
 
     }
 
@@ -179,9 +174,6 @@ public class Balloon {
     }
     public void setY(int y) {
         this.y = y;
-    }
-    public  void setContext(Context context) {
-        this.context = context;
     }
     public boolean isTouched() {
         return touched;

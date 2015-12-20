@@ -15,6 +15,9 @@ import com.hnguyen.childrenlearninggame.model.Components.Speed;
 import com.hnguyen.childrenlearninggame.model.Components.Voice;
 
 import java.lang.reflect.Field;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * Created by hnguyen on 10/3/15.
@@ -28,9 +31,10 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     private Background bg;
     private int currentBalloon=0;
     private long lastSpawnTime=0;
-    private static int SPAWN_INTERVAL=3000;
+    private static int SPAWN_INTERVAL=1500;
     private static int TOTAL_BALLOONS=5;
     private Voice voice;
+    private Queue<Balloon> respawnQueue;
 
     public MainGamePanel( Context context) {
         super(context);
@@ -39,12 +43,15 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         balloons = new Balloon[5];
         lastSpawnTime = System.currentTimeMillis();
         spawnBalloon();
-        bg = new Background(BitmapFactory.decodeResource(getResources(),R.drawable.background));
+        bg = new Background(BitmapFactory.decodeResource(getResources(), R.drawable.background));
 
         // create the game loop thread
         thread = new MainThread(getHolder(), this);
 
         voice = new Voice(context);
+
+        respawnQueue = new LinkedList<Balloon>();
+
         // make the GamePanel focusable so it can handle events
         setFocusable(true);
     }
@@ -52,16 +59,20 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
 
     private void spawnBalloon() {
         if( (System.currentTimeMillis() - lastSpawnTime) > SPAWN_INTERVAL) {
-            balloons[currentBalloon++] = new Balloon(BitmapFactory.decodeResource(getResources(), R.drawable.red_balloon), getContext(),voice);
+            balloons[currentBalloon++] = new Balloon(BitmapFactory.decodeResource(getResources(), R.drawable.red_balloon),this,voice);
             lastSpawnTime = System.currentTimeMillis();
 
         }
     }
 
     private void respawnBalloon(Balloon b) {
+        if(!respawnQueue.contains(b))
+            respawnQueue.add(b);
         if( (System.currentTimeMillis() - lastSpawnTime) > SPAWN_INTERVAL) {
-           b.reset();
-           lastSpawnTime = System.currentTimeMillis();
+            if(!respawnQueue.isEmpty()) {
+                respawnQueue.remove().reset();
+                lastSpawnTime = System.currentTimeMillis();
+            }
         }
     }
 
@@ -82,12 +93,14 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         // tell the thread to shut down and wait for it to finish
         // this is a clean shutdown
         boolean retry = true;
+        thread.setRunning(false);
         while (retry) {
             try {
                 thread.join();
                 retry = false;
             } catch (InterruptedException e) {
                 // try again shutting down the thread
+                Log.d(TAG,"Trying to shutdown thread");
             }
         }
         Log.d(TAG, "Thread was shut down cleanly");
@@ -123,23 +136,6 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     }
 
     public void update() {
-       // Log.d(TAG,"update()");
-//        // check collision with right wall if heading right
-//        if (balloon.getSpeed().getxDirection() == Speed.DIRECTION_RIGHT
-//                && balloon.getX() + balloon.getBitmap().getWidth() / 2 >= getWidth()) {
-//            balloon.getSpeed().toggleXDirection();
-//        }
-//        // check collision with left wall if heading left
-//        if (balloon.getSpeed().getxDirection() == Speed.DIRECTION_LEFT
-//                && balloon.getX() - balloon.getBitmap().getWidth() / 2 <= 0) {
-//            balloon.getSpeed().toggleXDirection();
-//        }
-//        // check collision with bottom wall if heading down
-//        if (balloon.getSpeed().getyDirection() == Speed.DIRECTION_DOWN
-//                && balloon.getY() + balloon.getBitmap().getHeight() / 2 >= getHeight()) {
-//            balloon.getSpeed().toggleYDirection();
-//        }
-//        // check collision with top wall if heading up
         if(currentBalloon<TOTAL_BALLOONS)
             spawnBalloon();
 
@@ -148,8 +144,9 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
             if (balloon != null)
                 balloon.update();
             if (balloon!=null && balloon.getSpeed().getyDirection() == Speed.DIRECTION_UP &&
-                    (balloon.getY()+balloon.getBitmap().getHeight()/2) <= 0)
+                    (balloon.getY()+balloon.getBitmap().getHeight()/2) <= 0) {
                 respawnBalloon(balloon);
+            }
         }
         bg.update();
 
@@ -178,5 +175,10 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
                     + resourceName + " / " + c, e);
         }
     }
+
+    public void setLastSpawnTime(long lastSpawnTime) {
+        this.lastSpawnTime = lastSpawnTime;
+    }
+
 }
 

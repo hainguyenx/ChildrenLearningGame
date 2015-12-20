@@ -17,7 +17,7 @@ public class MainThread extends Thread {
     // maximum number of frames to be skipped
     private final static int MAX_FRAME_SKIPS = 5;
     // the frame period
-    private final static int FRAME_PERIOD = 1000 / MAX_FPS;
+    private final static int FRAME_PERIOD = 500 / MAX_FPS;
     // Stuff for stats */
     private DecimalFormat df = new DecimalFormat("0.##");  // 2 dp
     // we'll be reading the stats every second

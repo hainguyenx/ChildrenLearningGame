@@ -1,20 +1,20 @@
 package com.hnguyen.childrenlearninggame;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
+
+/**
+ * Created by hnguyen on 12/19/15.
+ */
+public class GamePanelActivity extends Activity {
 
 
-public class MainActivity extends Activity {
-
-    public static final String TAG = MainActivity.class.getSimpleName();
-    private int backButtonCount=0;
+    public static final String TAG = GamePanelActivity.class.getSimpleName();
+    private MediaPlayer mediaPlayer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,7 +22,11 @@ public class MainActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         // making it full screen
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_main);
+        // set our MainGamePanel as the View
+        setContentView(new MainGamePanel(this));
+        mediaPlayer = MediaPlayer.create(GamePanelActivity.this,R.raw.background_music);
+        mediaPlayer.setLooping(true);
+        mediaPlayer.start();
         Log.d(TAG, "View added");
     }
 
@@ -31,6 +35,8 @@ public class MainActivity extends Activity {
     protected void onDestroy() {
         Log.d(TAG, "Destroying...");
         super.onDestroy();
+        if(mediaPlayer !=null)
+            mediaPlayer.release();
     }
 
     @Override
@@ -40,10 +46,11 @@ public class MainActivity extends Activity {
     }
 
 
-    public void startGame(View v)
-    {
-        Intent intent = new Intent(MainActivity.this, GamePanelActivity.class);
-        startActivity(intent);
+    @Override
+    public void onBackPressed() {
+        if(mediaPlayer !=null)
+            mediaPlayer.release();
+        super.onBackPressed();
     }
 
 }
