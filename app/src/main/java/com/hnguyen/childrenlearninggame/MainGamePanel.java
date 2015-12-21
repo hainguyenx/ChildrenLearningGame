@@ -3,6 +3,7 @@ package com.hnguyen.childrenlearninggame;
 import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -43,7 +44,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         balloons = new Balloon[5];
         lastSpawnTime = System.currentTimeMillis();
         spawnBalloon();
-        bg = new Background(BitmapFactory.decodeResource(getResources(), R.drawable.background));
+        bg = new Background(BitmapFactory.decodeResource(getResources(), R.drawable.background1));
 
         // create the game loop thread
         thread = new MainThread(getHolder(), this);
@@ -59,7 +60,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
 
     private void spawnBalloon() {
         if( (System.currentTimeMillis() - lastSpawnTime) > SPAWN_INTERVAL) {
-            balloons[currentBalloon++] = new Balloon(BitmapFactory.decodeResource(getResources(), R.drawable.red_balloon),this,voice);
+            balloons[currentBalloon++] = new Balloon(this,voice);
             lastSpawnTime = System.currentTimeMillis();
 
         }
@@ -78,8 +79,18 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-        thread.setRunning(true);
-        thread.start();
+    //if it is the first time the thread starts
+        if(thread.getState() == Thread.State.NEW){
+            thread.setRunning(true);
+            thread.start();
+        }
+
+    //after a pause it starts the thread again
+        else if (thread.getState() == Thread.State.TERMINATED){
+            thread = new MainThread(getHolder(), this);
+            thread.setRunning(true);
+            thread.start(); // Start a new thread
+        }
     }
 
     @Override
@@ -160,7 +171,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
      //   Log.d(TAG,"displayFps()");
         if(canvas != null && fps != null){
             Paint paint =  new Paint();
-            paint.setARGB(111,111,111,222);
+            paint.setColor(Color.rgb(255, 255, 255));
             canvas.drawText(fps,this.getWidth()-50,20,paint);
         }
     }

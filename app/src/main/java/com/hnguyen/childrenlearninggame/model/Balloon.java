@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -18,32 +19,40 @@ import com.hnguyen.childrenlearninggame.R;
 import com.hnguyen.childrenlearninggame.model.Components.Speed;
 import com.hnguyen.childrenlearninggame.model.Components.Voice;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 /**
  * Created by hnguyen on 10/3/15.
  */
 public class Balloon {
     private static String TAG = Balloon.class.getSimpleName();
+    private String[] balloonColors= {"black_balloon","blue_balloon","brown_balloon",
+            "green_balloon","lightblue_balloon","orange_balloon","purple_balloon","red_balloon",
+            "yellow_balloon"};
     private Bitmap bitmap;
     int x,y;
     private boolean touched;
     private Speed speed;
     private MainGamePanel mainGamePanel;
     private Explosion explosion;
-    private static int NUMBER_PARTICLE=15;
+    private static int NUMBER_PARTICLE=10;
     private Character letter;
     private Voice voice;
+    private Typeface font;
 
 
-    public Balloon(Bitmap bitmap,MainGamePanel mainGamePanel,Voice voice)
+    public Balloon(MainGamePanel mainGamePanel,Voice voice)
     {
         this.mainGamePanel = mainGamePanel;
-        this.bitmap = bitmap;
-        x = getXRandomNumber();
-        y = getYRandomNumber();
+        this.bitmap = randomBalloonColor();
+        this.x = getXRandomNumber();
+        this.y = getYRandomNumber();
         this.speed = new Speed();
-        letter = randomChar();
+        this.letter = randomChar();
         this.voice = voice;
+        this.font = Typeface.createFromAsset(this.mainGamePanel.getContext().getAssets(),"carbonbl.ttf");
+
 
     }
     public void reset()
@@ -51,6 +60,7 @@ public class Balloon {
         this.letter = randomChar();
         this.y = getYRandomNumber();
         this.x = getXRandomNumber();
+        this.bitmap = randomBalloonColor();
 
     }
     private Character randomChar()
@@ -62,6 +72,14 @@ public class Balloon {
         Log.d(TAG, "randomString=" + ch);
 
         return ch;
+    }
+
+    private Bitmap randomBalloonColor()
+    {
+        Random rnd = new Random();
+        int index = (int) (rnd.nextFloat() * balloonColors.length);
+        return BitmapFactory.decodeResource(this.mainGamePanel.getResources(),
+                MainGamePanel.getId(balloonColors[index],R.drawable.class));
     }
 
     public void draw(Canvas canvas) {
@@ -97,9 +115,10 @@ public class Balloon {
                 // droid touched
                 setTouched(true);
                 Log.d(TAG, "Balloon is touched!!");
+
                 //putting balloon out of sight
+                hideBalloon();
                 voice.saidCommand(letter);
-                y = -1 * bitmap.getHeight();
                 if(explosion==null || explosion.isDead())
                     explosion = new Explosion(NUMBER_PARTICLE,eventX,eventY);
             } else {
@@ -144,7 +163,6 @@ public class Balloon {
         paint.setColor(Color.rgb(255, 255, 255));
         // text size in pixels
         paint.setTextSize((int) (fontSize));
-
         // text shadow
         //paint.setShadowLayer(1f, 0f, 1f, Color.WHITE);
 
@@ -152,9 +170,13 @@ public class Balloon {
         Rect bounds = new Rect();
         String text = Character.toString(letter.charValue());
         paint.getTextBounds(text, 0, text.length(), bounds);
-
+        paint.setTypeface(this.font);
         canvas.drawText(text,this.x-bounds.width()/2, this.y, paint);
 
+    }
+
+    private void hideBalloon() {
+        y = -1 * bitmap.getHeight();
     }
 
     public Bitmap getBitmap() {

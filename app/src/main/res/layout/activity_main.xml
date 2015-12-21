@@ -9,7 +9,7 @@
     tools:context=".MainActivity">
 
     <ImageView
-        android:src="@drawable/background"
+        android:src="@drawable/main_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
@@ -20,22 +20,22 @@
         android:layout_height="match_parent"
         android:layout_width="match_parent">
 
-
-        <TextView
-            android:text="START"
-            android:layout_gravity="center"
-            android:onClick="startGame"
-            android:id="@+id/start" style="@style/MenuFont"/>
-
         <TextView
             android:text="SETTINGS"
             android:layout_gravity="center"
             android:id="@+id/settings" style="@style/MenuFont" />
+        <TextView
+            android:text="PLAY"
+            android:layout_gravity="center"
+            android:onClick="startGame"
+            android:id="@+id/play" style="@style/MenuFont"/>
 
         <TextView
-            android:text="EXIT"
+            android:text="QUIT"
             android:layout_gravity="center"
-            android:id="@+id/exit" style="@style/ExitFont" />
+            android:onClick="quitGame"
+            android:id="@+id/quit" style="@style/ExitFont" />
+
 
     </LinearLayout>
 

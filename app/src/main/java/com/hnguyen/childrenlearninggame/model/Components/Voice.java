@@ -76,8 +76,10 @@ public class Voice {
         if( soundCommands.get(command) !=null ) {
             int soundCommand = Integer.parseInt(soundCommands.get(command));
             Log.d(TAG, "saidCommand=" + Character.toString(c));
-            if (loaded)
+            if (loaded) {
                 sounds.play(soundCommand, 1.0f, 1.0f, 0, 0, 1.5f);
+                sounds.stop(soundCommand);
+            }
         }
     }
 
@@ -93,7 +95,7 @@ public class Voice {
                     .build();
 
             soundPool = new SoundPool.Builder()
-                    .setMaxStreams(25)
+                    .setMaxStreams(1)
                     .setAudioAttributes(audioAttributes)
                     .build();
             return soundPool;
@@ -103,7 +105,7 @@ public class Voice {
     }
     @SuppressWarnings("deprecation")
     private SoundPool buildBeforeAPI21() {
-        SoundPool soundPool = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
+        SoundPool soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
         return soundPool;
     }
 
