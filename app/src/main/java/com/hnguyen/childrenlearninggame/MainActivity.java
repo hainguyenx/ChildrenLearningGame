@@ -56,6 +56,11 @@ public class MainActivity extends Activity {
         startActivity(intent);
     }
 
+    public void setting(View v) {
+        Intent intent = new Intent(MainActivity.this, SettingActivity.class);
+        startActivity(intent);
+    }
+
     public void quitGame(View view){
         finish();
         System.exit(0);

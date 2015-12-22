@@ -15,6 +15,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
+
     <style name="ExitFont">
         <item name="android:textSize">30sp</item>
         <item name="android:textColor">#ff8000</item>
@@ -22,6 +23,16 @@
         <item name="android:clickable">true</item>
         <item name="android:layout_weight">1</item>
         <item name="android:gravity">center</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="SettingFont">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#171ab5</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:clickable">false</item>
+        <item name="android:gravity">right</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
