@@ -77,7 +77,7 @@ public class Voice {
             int soundCommand = Integer.parseInt(soundCommands.get(command));
             Log.d(TAG, "saidCommand=" + Character.toString(c));
             if (loaded) {
-                sounds.play(soundCommand, 1.0f, 1.0f, 0, 0, 1.5f);
+                sounds.play(soundCommand, 1.0f, 1.0f, 0, 0, 1.0f);
                 sounds.stop(soundCommand);
             }
         }
