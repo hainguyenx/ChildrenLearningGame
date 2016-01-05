@@ -64,6 +64,7 @@ public class Balloon {
         this.bitmap = randomBalloonColor();
         this.touched = false;
         this.hidden = false;
+        this.speed.resetSpeed();
 
     }
     private Character randomChar()

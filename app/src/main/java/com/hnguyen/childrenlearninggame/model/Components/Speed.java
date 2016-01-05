@@ -9,16 +9,17 @@ public class Speed {
     public static final int DIRECTION_LEFT	= -1;
     public static final int DIRECTION_UP	= -1;
     public static final int DIRECTION_DOWN	= 1;
+    private static final int MAX_SPEED = 3;
 
-    private float xv = 1;	// velocity value on the X axis
-    private float yv = 1;	// velocity value on the Y axis
+    private double xv = 1;	// velocity value on the X axis
+    private double yv = 1;	// velocity value on the Y axis
 
     private int xDirection = DIRECTION_RIGHT;
     private int yDirection = DIRECTION_UP;
 
     public Speed() {
-        this.xv = 5;
-        this.yv = 5;
+        this.xv = rndDbl(0, MAX_SPEED);
+        this.yv = rndDbl(0, MAX_SPEED);
     }
 
     public Speed(float xv, float yv) {
@@ -26,13 +27,18 @@ public class Speed {
         this.yv = yv;
     }
 
-    public float getXv() {
+    public void resetSpeed(){
+        this.xv = rndDbl(0, MAX_SPEED);
+        this.yv = rndDbl(0, MAX_SPEED);
+    }
+
+    public double getXv() {
         return xv;
     }
     public void setXv(float xv) {
         this.xv = xv;
     }
-    public float getYv() {
+    public double getYv() {
         return yv;
     }
     public void setYv(float yv) {
@@ -60,6 +66,9 @@ public class Speed {
     // changes the direction on the Y axis
     public void toggleYDirection() {
         yDirection = yDirection * -1;
+    }
+    static double rndDbl(double min, double max) {
+        return min + (max - min) * Math.random();
     }
 
 }

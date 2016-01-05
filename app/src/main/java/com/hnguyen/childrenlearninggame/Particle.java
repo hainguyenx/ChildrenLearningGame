@@ -17,9 +17,9 @@ public class Particle {
     public static final int STATE_ALIVE = 0;	// particle is alive
     public static final int STATE_DEAD = 1;		// particle is dead
 
-    public static final int DEFAULT_LIFETIME 	= 200;	// play with this
+    public static final int DEFAULT_LIFETIME 	= 300;	// play with this
     public static final int MAX_RADIUS		= 40;	// the maximum width or height
-    public static final int MAX_SPEED			= 10;	// maximum speed (per update)
+    public static final int MAX_SPEED			= 4;	// maximum speed (per update)
 
     private int state;			// particle is alive or dead
 
@@ -203,7 +203,6 @@ public class Particle {
     public void draw(Canvas canvas) {
         paint.setColor(this.color);
         canvas.drawCircle(this.x, this.y, radius, paint);
-      //  canvas.drawRect(this.x, this.y, this.x + this.widht, this.y + this.height, paint);
     }
 
 }
