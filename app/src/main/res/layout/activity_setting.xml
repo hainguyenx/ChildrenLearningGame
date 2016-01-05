@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:id="@+id/balloonSpeedBar"
-                android:max="10" />
+                android:max="100" />
         </LinearLayout>
 
         <LinearLayout
@@ -47,8 +47,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:id="@+id/volumControlBar"
-                android:max="10" />
+                android:id="@+id/volumeControlBar"
+                android:max="100" />
         </LinearLayout>
 
         <LinearLayout
@@ -59,7 +59,12 @@
             android:layout_margin="@dimen/activity_horizontal_margin">
             <Button
                 android:text="OK"
-                android:id="@+id/ok" style="@style/OKFont"/>
+                android:onClick="okClick"
+                android:id="@+id/okButton" style="@style/OKFont"/>
+            <Button
+                android:text="Default"
+                android:onClick="defaultClick"
+                android:id="@+id/defaultButton" style="@style/DefaultFont"/>
 
         </LinearLayout>
 

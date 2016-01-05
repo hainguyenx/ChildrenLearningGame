@@ -40,6 +40,7 @@ public class Balloon {
     private Character letter;
     private Voice voice;
     private Typeface font;
+    private boolean hidden=false;
 
 
     public Balloon(MainGamePanel mainGamePanel,Voice voice)
@@ -61,6 +62,8 @@ public class Balloon {
         this.y = getYRandomNumber();
         this.x = getXRandomNumber();
         this.bitmap = randomBalloonColor();
+        this.touched = false;
+        this.hidden = false;
 
     }
     private Character randomChar()
@@ -104,7 +107,6 @@ public class Balloon {
     }
 
     /**
-     * Handles the {@link MotionEvent.ACTION_DOWN} event. If the event happens on the
      * bitmap surface then the touched state is set to <code>true</code> otherwise to <code>false</code>
      * @param eventX - the event's X coordinate
      * @param eventY - the event's Y coordinate
@@ -176,9 +178,14 @@ public class Balloon {
     }
 
     private void hideBalloon() {
-        y = -1 * bitmap.getHeight();
+        setY(-1 * bitmap.getHeight());
+        setX(-1*bitmap.getWidth());
+        this.hidden = true;
     }
 
+    public boolean isHidden(){
+        return this.hidden;
+    }
     public Bitmap getBitmap() {
         return bitmap;
     }

@@ -124,7 +124,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
             Log.d(TAG, "UP EVENT!!!!!!");
             for (Balloon b :balloons)
             {
-                    if(b!=null)
+                    if(b!=null && !b.isHidden())
                          b.handleTouch(Math.round(event.getX()),Math.round(event.getY()) );
             }
         }
@@ -150,7 +150,6 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         if(currentBalloon<TOTAL_BALLOONS)
             spawnBalloon();
 
-        // Update the lone droid
         for (Balloon balloon :balloons) {
             if (balloon != null)
                 balloon.update();
