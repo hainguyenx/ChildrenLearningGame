@@ -4,6 +4,12 @@
     android:layout_height="match_parent"
     android:background="@color/grey"
     tools:context=".SettingActivity">
+    <ImageView
+        android:src="@drawable/main_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:id="@+id/imageView" />
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"

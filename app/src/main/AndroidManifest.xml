@@ -24,7 +24,7 @@
         <activity
             android:name=".SettingActivity"
             android:label="@string/title_activity_setting"
-            android:theme="@android:style/Theme.Dialog">
+            android:screenOrientation="sensorLandscape">
         </activity>
     </application>
 

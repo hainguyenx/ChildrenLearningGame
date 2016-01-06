@@ -51,7 +51,7 @@
     </style>
     <style name="SettingFont">
         <item name="android:textSize">40sp</item>
-        <item name="android:textColor">#171ab5</item>
+        <item name="android:textColor">#FFB55B17</item>
         <item name="android:textStyle">bold</item>
         <item name="android:clickable">false</item>
         <item name="android:gravity">right</item>
