@@ -103,21 +103,6 @@ public class Explosion {
         }
     }
 
-//    public void update(Rect container) {
-//        if (this.state != STATE_DEAD) {
-//            boolean isDead = true;
-//            for (int i = 0; i < this.particles.length; i++) {
-//                if (this.particles[i].isAlive()) {
-//         //           this.particles[i].update(container);
-//					this.particles[i].update();
-//                    isDead = false;
-//                }
-//            }
-//            if (isDead)
-//                this.state = STATE_DEAD;
-//        }
-//    }
-
     public void draw(Canvas canvas) {
         for(int i = 0; i < this.particles.length; i++) {
             if (this.particles[i].isAlive()) {

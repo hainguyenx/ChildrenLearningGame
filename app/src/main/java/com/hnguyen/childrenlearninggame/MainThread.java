@@ -117,8 +117,7 @@ public class MainThread extends Thread {
                 framesSkipped++;
             }
             if (framesSkipped > 0) {
-//                Log.d(TAG, "Skipped:" + framesSkipped);
-//                storeStats();
+                storeStats();
             }
         }
     }
@@ -134,7 +133,6 @@ public class MainThread extends Thread {
         for (int i = 0; i < FPS_HISTORY_NR; i++) {
             fpsStore[i] = 0.0;
         }
-        Log.d(TAG + ".initTimingElements()", "Timing elements for stats initialised");
     }
 
 
@@ -179,7 +177,6 @@ public class MainThread extends Thread {
             frameCountPerStatCycle = 0;
             statusIntervalTimer = System.currentTimeMillis();
             lastStatusStore = statusIntervalTimer;
-//          Log.d(TAG, "Average FPS:" + df.format(averageFps));
             gamePanel.setAvgFps("FPS: " + df.format(averageFps));
         }
     }

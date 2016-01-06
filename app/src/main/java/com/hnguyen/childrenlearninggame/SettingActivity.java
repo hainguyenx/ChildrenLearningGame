@@ -11,8 +11,10 @@ public class SettingActivity extends Activity {
 
     private SeekBar volumeSeek;
     private SeekBar balloonSpeedSeek;
+    private SeekBar balloonRateSeek;
     private int volume;
     private int speed;
+    private int balloonRate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,8 +23,11 @@ public class SettingActivity extends Activity {
         Intent intent = getIntent();
         volumeSeek = (SeekBar) findViewById(R.id.volumeControlBar);
         balloonSpeedSeek = (SeekBar) findViewById(R.id.balloonSpeedBar);
+        balloonRateSeek = (SeekBar) findViewById(R.id.balloonRespawnTimeBar);
         volumeSeek.setProgress(intent.getIntExtra("volume",MainActivity.DEFAULT_VOLUME));
-        balloonSpeedSeek.setProgress(intent.getIntExtra("speed",MainActivity.DEFAULT_SPEED));
+        balloonSpeedSeek.setProgress(intent.getIntExtra("speed", MainActivity.DEFAULT_SPEED));
+        balloonRateSeek.setProgress(intent.getIntExtra("balloonRate", MainActivity.DEFAULT_BALLOON_RATE));
+
         //Listener for seek volume bar
         volumeSeek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -58,22 +63,43 @@ public class SettingActivity extends Activity {
 
             }
         });
+
+
+        //Listener for seek rate bar
+        balloonRateSeek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                balloonRate = progress;
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
     }
 
     public void okClick(View v){
         Intent intent = new Intent();
         intent.putExtra("volume", volume);
         intent.putExtra("speed", speed);
+        intent.putExtra("balloonRate",balloonRate);
         setResult(Activity.RESULT_OK, intent);
         finish();
     }
 
     public void defaultClick(View v){
-        Intent intent = new Intent();
-        intent.putExtra("volume",MainActivity.DEFAULT_VOLUME);
-        intent.putExtra("speed",MainActivity.DEFAULT_SPEED);
-        setResult(Activity.RESULT_OK, intent);
-        finish();
+        volumeSeek.setProgress(MainActivity.DEFAULT_VOLUME);
+        balloonSpeedSeek.setProgress(MainActivity.DEFAULT_SPEED);
+        balloonRateSeek.setProgress(MainActivity.DEFAULT_BALLOON_RATE);
+        this.volume = MainActivity.DEFAULT_VOLUME;
+        this.speed = MainActivity.DEFAULT_SPEED;
+        this.balloonRate = MainActivity.DEFAULT_BALLOON_RATE;
     }
 
 }

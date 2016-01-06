@@ -18,7 +18,6 @@ import com.hnguyen.childrenlearninggame.model.Components.Voice;
 import java.lang.reflect.Field;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * Created by hnguyen on 10/3/15.
@@ -32,15 +31,18 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     private Background bg;
     private int currentBalloon=0;
     private long lastSpawnTime=0;
-    private static int SPAWN_INTERVAL=1500;
+    private int spawnInterval =MainActivity.DEFAULT_BALLOON_RATE;
     private static int TOTAL_BALLOONS=5;
     private Voice voice;
     private Queue<Balloon> respawnQueue;
+    private int maxSpeed;
 
-    public MainGamePanel( Context context) {
+    public MainGamePanel( Context context, int balloonSpeed, int balloonRate) {
         super(context);
         getHolder().addCallback(this);
         // create droid and load bitmap
+        this.maxSpeed = balloonSpeed;
+        this.spawnInterval = balloonRate;
         balloons = new Balloon[5];
         lastSpawnTime = System.currentTimeMillis();
         spawnBalloon();
@@ -59,8 +61,8 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
 
 
     private void spawnBalloon() {
-        if( (System.currentTimeMillis() - lastSpawnTime) > SPAWN_INTERVAL) {
-            balloons[currentBalloon++] = new Balloon(this,voice);
+        if( (System.currentTimeMillis() - lastSpawnTime) > spawnInterval) {
+            balloons[currentBalloon++] = new Balloon(this,voice,this.maxSpeed);
             lastSpawnTime = System.currentTimeMillis();
 
         }
@@ -69,7 +71,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     private void respawnBalloon(Balloon b) {
         if(!respawnQueue.contains(b))
             respawnQueue.add(b);
-        if( (System.currentTimeMillis() - lastSpawnTime) > SPAWN_INTERVAL) {
+        if( (System.currentTimeMillis() - lastSpawnTime) > spawnInterval) {
             if(!respawnQueue.isEmpty()) {
                 respawnQueue.remove().reset();
                 lastSpawnTime = System.currentTimeMillis();

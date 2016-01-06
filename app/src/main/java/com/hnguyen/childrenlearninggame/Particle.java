@@ -8,10 +8,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
-/**
- * @author impaler
- *
- */
 public class Particle {
 
     public static final int STATE_ALIVE = 0;	// particle is alive
@@ -168,37 +164,13 @@ public class Particle {
                 this.color = (this.color & 0x00ffffff) + (a << 24);		// set the new alpha
                 this.paint.setAlpha(a);
                 this.age++;						// increase the age of the particle
-//				this.widht *= 1.05;
-//				this.height *= 1.05;
             }
             if (this.age >= this.lifetime) {	// reached the end if its life
                 this.state = STATE_DEAD;
             }
 
-            // http://lab.polygonal.de/2007/05/10/bitwise-gems-fast-integer-math/
-            //32bit
-//			var color:uint = 0xff336699;
-//			var a:uint = color >>> 24;
-//			var r:uint = color >>> 16 & 0xFF;
-//			var g:uint = color >>>  8 & 0xFF;
-//			var b:uint = color & 0xFF;
-
         }
     }
-
-//    public void update(Rect container) {
-//        // update with collision
-//        if (this.isAlive()) {
-//            if (this.x <= container.left || this.x >= container.right - this.widht) {
-//                this.xv *= -1;
-//            }
-//            // Bottom is 480 and top is 0 !!!
-//            if (this.y <= container.top || this.y >= container.bottom - this.height) {
-//                this.yv *= -1;
-//            }
-//        }
-//        update();
-//    }
 
     public void draw(Canvas canvas) {
         paint.setColor(this.color);

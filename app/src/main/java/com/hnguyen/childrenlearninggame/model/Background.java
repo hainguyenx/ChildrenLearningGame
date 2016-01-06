@@ -31,10 +31,6 @@ public class Background {
 
     public void update()
     {
-//        x+=dx;
-//        if(x<-MainGamePanel.WIDTH){
-//            x=0;
-//        }
     }
     public void draw(Canvas canvas)
     {

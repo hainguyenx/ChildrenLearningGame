@@ -17,7 +17,8 @@ public class GamePanelActivity extends Activity {
     public static final String TAG = GamePanelActivity.class.getSimpleName();
     private MediaPlayer mediaPlayer;
     private float volume;
-    private float speed;
+    private int speed;
+    private int balloonRate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,11 +27,14 @@ public class GamePanelActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         // making it full screen
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        // set our MainGamePanel as the View
-        setContentView(new MainGamePanel(this));
+
         Intent intent = getIntent();
         volume = intent.getIntExtra("volume", MainActivity.DEFAULT_VOLUME);
-        speed = intent.getIntExtra("speed", MainActivity.DEFAULT_VOLUME);
+        speed = intent.getIntExtra("speed", MainActivity.DEFAULT_SPEED);
+        balloonRate = intent.getIntExtra("balloonRate", MainActivity.DEFAULT_BALLOON_RATE);
+        // set our MainGamePanel as the View
+        setContentView(new MainGamePanel(this,speed,balloonRate));
+
         mediaPlayer = MediaPlayer.create(GamePanelActivity.this, R.raw.background_music);
         mediaPlayer.setLooping(true);
         mediaPlayer.setVolume(this.volume/100,this.volume/100);

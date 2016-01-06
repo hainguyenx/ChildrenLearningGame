@@ -36,20 +36,22 @@ public class Balloon {
     private Speed speed;
     private MainGamePanel mainGamePanel;
     private Explosion explosion;
-    private static int NUMBER_PARTICLE=10;
+    private static int NUMBER_PARTICLE=15;
     private Character letter;
     private Voice voice;
     private Typeface font;
     private boolean hidden=false;
 
 
-    public Balloon(MainGamePanel mainGamePanel,Voice voice)
+    public Balloon(MainGamePanel mainGamePanel,Voice voice,int maxSpeed)
     {
         this.mainGamePanel = mainGamePanel;
         this.bitmap = randomBalloonColor();
         this.x = getXRandomNumber();
         this.y = getYRandomNumber();
         this.speed = new Speed();
+        this.speed.setMaxSpeed(maxSpeed);
+        this.speed.resetSpeed();
         this.letter = randomChar();
         this.voice = voice;
         this.font = Typeface.createFromAsset(this.mainGamePanel.getContext().getAssets(),"carbonbl.ttf");
@@ -144,7 +146,6 @@ public class Balloon {
 
     public int getYRandomNumber()
     {
-       // Random r = new Random();
         WindowManager windowManager = (WindowManager)mainGamePanel.getContext().getSystemService(Context.WINDOW_SERVICE);
         DisplayMetrics metrics = new DisplayMetrics();
         windowManager.getDefaultDisplay().getMetrics(metrics);
@@ -153,7 +154,6 @@ public class Balloon {
 
     public void drawTextToBitmap(Canvas canvas) {
 
-        WindowManager windowManager = (WindowManager)mainGamePanel.getContext().getSystemService(Context.WINDOW_SERVICE);
         DisplayMetrics metrics = new DisplayMetrics();
 
         int fontSize = (int)mainGamePanel.getContext().getResources().getDimension(R.dimen.letter_size);
@@ -166,8 +166,6 @@ public class Balloon {
         paint.setColor(Color.rgb(255, 255, 255));
         // text size in pixels
         paint.setTextSize((int) (fontSize));
-        // text shadow
-        //paint.setShadowLayer(1f, 0f, 1f, Color.WHITE);
 
         // draw text to the Canvas center
         Rect bounds = new Rect();
@@ -179,8 +177,8 @@ public class Balloon {
     }
 
     private void hideBalloon() {
-        setY(-1 * bitmap.getHeight());
-        setX(-1*bitmap.getWidth());
+        setY(-2 * bitmap.getHeight());
+        setX(-2 * bitmap.getWidth());
         this.hidden = true;
     }
 
