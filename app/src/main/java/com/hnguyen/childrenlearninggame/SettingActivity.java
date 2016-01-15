@@ -12,9 +12,9 @@ public class SettingActivity extends Activity {
     private SeekBar volumeSeek;
     private SeekBar balloonSpeedSeek;
     private SeekBar balloonRateSeek;
-    private int volume;
-    private int speed;
-    private int balloonRate;
+    private int volume = MainActivity.DEFAULT_VOLUME;
+    private int speed = MainActivity.DEFAULT_SPEED;
+    private int balloonRate = MainActivity.DEFAULT_BALLOON_RATE;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

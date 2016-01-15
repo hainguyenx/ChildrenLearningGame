@@ -143,7 +143,6 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
                 if (b != null)
                     b.draw(canvas);
             }
-            displayFps(canvas, "avgFps:"+avgFps);
         }
 
     }
@@ -164,20 +163,6 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
 
     }
 
-    public void setAvgFps(String avgFps){
-        this.avgFps = avgFps;
-    }
-
-    private void displayFps(Canvas canvas, String fps){
-     //   Log.d(TAG,"displayFps()");
-        if(canvas != null && fps != null){
-            Paint paint =  new Paint();
-            paint.setColor(Color.rgb(255, 255, 255));
-            canvas.drawText(fps,this.getWidth()-50,20,paint);
-        }
-    }
-
-
     public static int getId(String resourceName, Class<?> c) {
         try {
             Field idField = c.getDeclaredField(resourceName);
@@ -188,9 +173,6 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         }
     }
 
-    public void setLastSpawnTime(long lastSpawnTime) {
-        this.lastSpawnTime = lastSpawnTime;
-    }
 
 }
 

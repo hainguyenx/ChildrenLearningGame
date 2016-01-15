@@ -19,13 +19,11 @@ public class MainActivity extends Activity {
     public static final int DEFAULT_SPEED=3;
     public static final int DEFAULT_BALLOON_RATE =1000;
 
-
-    private int backButtonCount=0;
-
     //Default volume and speed
     private int volume = DEFAULT_VOLUME;
     private int speed = DEFAULT_SPEED;
     private int balloonRate = DEFAULT_BALLOON_RATE;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +60,10 @@ public class MainActivity extends Activity {
                 this.volume = data.getIntExtra("volume",DEFAULT_VOLUME);
                 this.speed = data.getIntExtra("speed",DEFAULT_SPEED);
                 this.balloonRate =  data.getIntExtra("balloonRate",DEFAULT_BALLOON_RATE);
+            }else{
+                this.volume = DEFAULT_VOLUME;
+                this.speed = DEFAULT_SPEED;
+                this.balloonRate = DEFAULT_BALLOON_RATE;
             }
         }
     }
@@ -77,9 +79,9 @@ public class MainActivity extends Activity {
 
     public void setting(View v) {
         Intent intent = new Intent(MainActivity.this, SettingActivity.class);
-        intent.putExtra("volume",this.volume);
+        intent.putExtra("volume", this.volume);
         intent.putExtra("speed", this.speed);
-        intent.putExtra("balloonRate",this.balloonRate);
+        intent.putExtra("balloonRate", this.balloonRate);
         startActivityForResult(intent, SETTING_ACTIVITY_CODE);
     }
 

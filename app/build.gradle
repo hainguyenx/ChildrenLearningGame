@@ -1,9 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'MyAndroidKey'
+            keyPassword 'anhmap80'
+            storeFile file('/Users/hnguyen/keystores/MyAndroidKey.jks')
+            storePassword 'anhmap80'
+        }
+    }
     compileSdkVersion 23
     buildToolsVersion "23.0.1"
-
     defaultConfig {
         applicationId "com.hnguyen.childrenlearninggame"
         minSdkVersion 8
@@ -15,9 +22,12 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
         debug {
             debuggable = true
+            signingConfig signingConfigs.config
+            minifyEnabled false
         }
     }
 }

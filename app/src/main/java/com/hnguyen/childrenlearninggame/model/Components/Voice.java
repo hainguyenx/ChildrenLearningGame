@@ -95,7 +95,7 @@ public class Voice {
                     .build();
 
             soundPool = new SoundPool.Builder()
-                    .setMaxStreams(1)
+                    .setMaxStreams(10)
                     .setAudioAttributes(audioAttributes)
                     .build();
             return soundPool;
@@ -105,7 +105,7 @@ public class Voice {
     }
     @SuppressWarnings("deprecation")
     private SoundPool buildBeforeAPI21() {
-        SoundPool soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
+        SoundPool soundPool = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
         return soundPool;
     }
 

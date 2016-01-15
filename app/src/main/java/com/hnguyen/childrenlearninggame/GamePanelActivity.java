@@ -33,12 +33,11 @@ public class GamePanelActivity extends Activity {
         speed = intent.getIntExtra("speed", MainActivity.DEFAULT_SPEED);
         balloonRate = intent.getIntExtra("balloonRate", MainActivity.DEFAULT_BALLOON_RATE);
         // set our MainGamePanel as the View
-        setContentView(new MainGamePanel(this,speed,balloonRate));
-
         mediaPlayer = MediaPlayer.create(GamePanelActivity.this, R.raw.background_music);
         mediaPlayer.setLooping(true);
-        mediaPlayer.setVolume(this.volume/100,this.volume/100);
+        mediaPlayer.setVolume(this.volume / 100, this.volume / 100);
         mediaPlayer.start();
+        setContentView(new MainGamePanel(this, speed, balloonRate));
         Log.d(TAG, "View added");
     }
 

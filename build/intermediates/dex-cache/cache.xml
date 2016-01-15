@@ -2,46 +2,46 @@
 <items version="2" >
 
     <item
-        jar="/home/hnguyen/AndroidStudioProjects/ChildrenLearningGame/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="5c5699834e9722f1c288fea2de82725d078ba127">
-        <dex dex="/home/hnguyen/AndroidStudioProjects/ChildrenLearningGame/app/build/intermediates/pre-dexed/debug/classes-91658c6cdc5e82962385b8ad9a209bc36cc37375.jar" />
-    </item>
-    <item
-        jar="/home/hnguyen/AndroidStudioProjects/ChildrenLearningGame/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="379471b2bd17d9737c050345c08e8c7d16589784">
-        <dex dex="/home/hnguyen/AndroidStudioProjects/ChildrenLearningGame/app/build/intermediates/pre-dexed/debug/classes-d0697c5c96175bb88f7e2bd8aff456ee5d48f545.jar" />
-    </item>
-    <item
-        jar="/home/hnguyen/AndroidStudioProjects/ChildrenLearningGame/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars/libs/internal_impl-23.1.1.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="a4de9c81ae239414e1ed0f86441b02abaf29bca9">
-        <dex dex="/home/hnguyen/AndroidStudioProjects/ChildrenLearningGame/app/build/intermediates/pre-dexed/debug/internal_impl-23.1.1-28b440f1b8873f6a1218fb4f7779c2048d2c7415.jar" />
-    </item>
-    <item
-        jar="/home/hnguyen/AndroidStudioProjects/ChildrenLearningGame/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars/classes.jar"
+        jar="/Users/hnguyen/AndroidStudioProjects/ChildrenLearningGame/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars/classes.jar"
         jumboMode="false"
         revision="23.0.1"
         sha1="6cbc7773921fcfedbe55657578f0cbfe614778dc">
-        <dex dex="/home/hnguyen/AndroidStudioProjects/ChildrenLearningGame/app/build/intermediates/pre-dexed/debug/classes-639fd8cf0d920322d4ac210271f9f91a65d38835.jar" />
+        <dex dex="/Users/hnguyen/AndroidStudioProjects/ChildrenLearningGame/app/build/intermediates/pre-dexed/release/classes-bc96eb9c7953fdce9d12366fb268162f8f5cf6fd.jar" />
     </item>
     <item
-        jar="/home/hnguyen/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/23.1.1/support-annotations-23.1.1.jar"
+        jar="/Users/hnguyen/AndroidStudioProjects/ChildrenLearningGame/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars/libs/internal_impl-23.1.1.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="8d680ba5a623724d1fb0e81c36a790f023a6cede">
-        <dex dex="/home/hnguyen/AndroidStudioProjects/ChildrenLearningGame/app/build/intermediates/pre-dexed/debug/support-annotations-23.1.1-51595aaf16de49a8927d8669a3b40691152d5b18.jar" />
+        sha1="a4de9c81ae239414e1ed0f86441b02abaf29bca9">
+        <dex dex="/Users/hnguyen/AndroidStudioProjects/ChildrenLearningGame/app/build/intermediates/pre-dexed/release/internal_impl-23.1.1-7b8293d4ca5185dc170e1085b7d96ae9269eb68f.jar" />
     </item>
     <item
-        jar="/home/hnguyen/AndroidStudioProjects/ChildrenLearningGame/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.1.1/jars/classes.jar"
+        jar="/Users/hnguyen/AndroidStudioProjects/ChildrenLearningGame/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.1.1/jars/classes.jar"
         jumboMode="false"
         revision="23.0.1"
         sha1="09c5e804bc67fc0580360043dff067df574a60d4">
-        <dex dex="/home/hnguyen/AndroidStudioProjects/ChildrenLearningGame/app/build/intermediates/pre-dexed/debug/classes-5f073dfbac9239cb076a7bbde897903e3aa5e625.jar" />
+        <dex dex="/Users/hnguyen/AndroidStudioProjects/ChildrenLearningGame/app/build/intermediates/pre-dexed/release/classes-4f23aa5e122ca7ab87445fdd62da43fb500d07a3.jar" />
+    </item>
+    <item
+        jar="/Users/hnguyen/AndroidStudioProjects/ChildrenLearningGame/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="379471b2bd17d9737c050345c08e8c7d16589784">
+        <dex dex="/Users/hnguyen/AndroidStudioProjects/ChildrenLearningGame/app/build/intermediates/pre-dexed/release/classes-fe3df2e0d066acd3933e7318e21f3a6c33b35b32.jar" />
+    </item>
+    <item
+        jar="/Users/hnguyen/AndroidStudioProjects/ChildrenLearningGame/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="5c5699834e9722f1c288fea2de82725d078ba127">
+        <dex dex="/Users/hnguyen/AndroidStudioProjects/ChildrenLearningGame/app/build/intermediates/pre-dexed/release/classes-51eb4ba2386f3023f469a3bd13fe692642140a36.jar" />
+    </item>
+    <item
+        jar="/Users/hnguyen/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.1.1/support-annotations-23.1.1.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="8d680ba5a623724d1fb0e81c36a790f023a6cede">
+        <dex dex="/Users/hnguyen/AndroidStudioProjects/ChildrenLearningGame/app/build/intermediates/pre-dexed/release/support-annotations-23.1.1-0dffdc1bdbdde84c0bdbcacbbb7563cfaa9b5abf.jar" />
     </item>
 
 </items>
