@@ -57,7 +57,7 @@ public class GamePanelActivity extends Activity {
             mediaPlayer.pause();
         super.onStop();
     }
-    
+
     @Override
     public void onStart() {
         if(mediaPlayer !=null){

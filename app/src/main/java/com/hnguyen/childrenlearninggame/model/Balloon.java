@@ -54,7 +54,7 @@ public class Balloon {
         this.speed.resetSpeed();
         this.letter = randomChar();
         this.voice = voice;
-        this.font = Typeface.createFromAsset(this.mainGamePanel.getContext().getAssets(),"carbonbl.ttf");
+        this.font = Typeface.createFromAsset(this.mainGamePanel.getContext().getAssets(),"qsa.ttf");
 
 
     }
