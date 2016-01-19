@@ -53,6 +53,8 @@ public class GamePanelActivity extends Activity {
     @Override
     protected void onStop() {
         Log.d(TAG, "Stopping...");
+        if(mediaPlayer !=null)
+            mediaPlayer.release();
         super.onStop();
     }
 
