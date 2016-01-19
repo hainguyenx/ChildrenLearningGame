@@ -36,7 +36,7 @@ public class GamePanelActivity extends Activity {
         mediaPlayer = MediaPlayer.create(GamePanelActivity.this, R.raw.background_music);
         mediaPlayer.setLooping(true);
         mediaPlayer.setVolume(this.volume / 100, this.volume / 100);
-        mediaPlayer.start();
+        //mediaPlayer.start();
         setContentView(new MainGamePanel(this, speed, balloonRate));
         Log.d(TAG, "View added");
     }
@@ -53,17 +53,18 @@ public class GamePanelActivity extends Activity {
     @Override
     protected void onStop() {
         Log.d(TAG, "Stopping...");
-        if(mediaPlayer !=null)
-            mediaPlayer.release();
+        if (mediaPlayer != null)
+            mediaPlayer.pause();
         super.onStop();
     }
-
-
+    
     @Override
-    public void onBackPressed() {
-        if(mediaPlayer !=null)
-            mediaPlayer.release();
-        super.onBackPressed();
+    public void onStart() {
+        if(mediaPlayer !=null){
+            int length = mediaPlayer.getCurrentPosition();
+            mediaPlayer.seekTo(length);
+            mediaPlayer.start();
+        }
+        super.onStart();
     }
-
 }
